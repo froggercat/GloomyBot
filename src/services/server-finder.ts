@@ -1,11 +1,11 @@
 import { injectable } from "inversify";
 
 @injectable()
-export class ServerDetailsFinder {
+export class ServerFinder {
 
     private regexp = "which server";
 
-    public isServerDetailsRequest(stringToSearch: string): boolean {
+    public isServerRequest(stringToSearch: string): boolean {
         return stringToSearch.search(this.regexp) >= 0;
     }
 }

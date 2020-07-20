@@ -16,7 +16,7 @@ exports.MessageResponder = void 0;
 const ping_finder_1 = require("./ping-finder");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
-const server_details_finder_1 = require("./server-details-finder");
+const server_finder_1 = require("./server-finder");
 let MessageResponder = class MessageResponder {
     constructor(pingFinder, serverFinder) {
         this.pingFinder = pingFinder;
@@ -26,7 +26,7 @@ let MessageResponder = class MessageResponder {
         if (this.pingFinder.isPing(message.content)) {
             return message.reply('pong!');
         }
-        if (this.serverFinder.isServerDetailsRequest(message.content)) {
+        if (this.serverFinder.isServerRequest(message.content)) {
             return message.reply(process.env.SERVER);
         }
         return Promise.reject();
@@ -35,9 +35,9 @@ let MessageResponder = class MessageResponder {
 MessageResponder = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.PingFinder)),
-    __param(1, inversify_1.inject(types_1.TYPES.ServerDetailsFinder)),
+    __param(1, inversify_1.inject(types_1.TYPES.ServerFinder)),
     __metadata("design:paramtypes", [ping_finder_1.PingFinder,
-        server_details_finder_1.ServerDetailsFinder])
+        server_finder_1.ServerFinder])
 ], MessageResponder);
 exports.MessageResponder = MessageResponder;
 //# sourceMappingURL=message-responder.js.map

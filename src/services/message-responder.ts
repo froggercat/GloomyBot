@@ -2,16 +2,16 @@ import { Message } from "discord.js";
 import { PingFinder } from "./ping-finder";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
-import { ServerDetailsFinder } from "./server-details-finder";
+import { ServerFinder } from "./server-finder";
 
 @injectable()
 export class MessageResponder {
     private pingFinder: PingFinder;
-    private serverFinder: ServerDetailsFinder;
+    private serverFinder: ServerFinder;
 
     constructor(
         @inject(TYPES.PingFinder) pingFinder: PingFinder,
-        @inject(TYPES.ServerDetailsFinder) serverFinder: ServerDetailsFinder
+        @inject(TYPES.ServerFinder) serverFinder: ServerFinder
     ) {
         this.pingFinder = pingFinder;
         this.serverFinder = serverFinder;
@@ -21,7 +21,7 @@ export class MessageResponder {
         if (this.pingFinder.isPing(message.content)) {
             return message.reply('pong!');
         }
-        if (this.serverFinder.isServerDetailsRequest(message.content)) {
+        if (this.serverFinder.isServerRequest(message.content)) {
             return message.reply(process.env.SERVER);
         }
 

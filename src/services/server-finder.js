@@ -6,18 +6,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServerDetailsFinder = void 0;
+exports.ServerFinder = void 0;
 const inversify_1 = require("inversify");
-let ServerDetailsFinder = class ServerDetailsFinder {
+let ServerFinder = class ServerFinder {
     constructor() {
         this.regexp = "which server";
     }
-    isServerDetailsRequest(stringToSearch) {
+    isServerRequest(stringToSearch) {
         return stringToSearch.search(this.regexp) >= 0;
     }
 };
-ServerDetailsFinder = __decorate([
+ServerFinder = __decorate([
     inversify_1.injectable()
-], ServerDetailsFinder);
-exports.ServerDetailsFinder = ServerDetailsFinder;
-//# sourceMappingURL=server-details-finder.js.map
+], ServerFinder);
+exports.ServerFinder = ServerFinder;
+//# sourceMappingURL=server-finder.js.map
