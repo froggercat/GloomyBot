@@ -7,5 +7,6 @@ exports.TYPES = {
     Token: Symbol("Token"),
     MessageResponder: Symbol("MessageResponder"),
     PingFinder: Symbol("PingFinder"),
+    ServerDetailsFinder: Symbol("ServerDetailsFinder")
 };
 //# sourceMappingURL=types.js.map
