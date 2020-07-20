@@ -25,10 +25,6 @@ let Bot = class Bot {
     }
     listen() {
         this.client.on('message', (message) => {
-            if (message.author.bot) {
-                console.log('Ignoring bot message!');
-                return;
-            }
             console.log("Message received! Contents: ", message.content);
             this.messageResponder.handle(message).then(() => {
                 console.log("Response sent!");
