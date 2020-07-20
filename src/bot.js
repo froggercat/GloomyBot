@@ -16,15 +16,25 @@ exports.Bot = void 0;
 const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
 const types_1 = require("./types");
-// import {MessageResponder} from "./services/message-responder";
+const message_responder_1 = require("./services/message-responder");
 let Bot = class Bot {
-    constructor(client, token) {
+    constructor(client, token, messageResponder) {
         this.client = client;
         this.token = token;
+        this.messageResponder = messageResponder;
     }
     listen() {
         this.client.on('message', (message) => {
+            if (message.author.bot) {
+                console.log('Ignoring bot message!');
+                return;
+            }
             console.log("Message received! Contents: ", message.content);
+            this.messageResponder.handle(message).then(() => {
+                console.log("Response sent!");
+            }).catch(() => {
+                console.log("Response not sent.");
+            });
         });
         return this.client.login(this.token);
     }
@@ -33,7 +43,8 @@ Bot = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.Client)),
     __param(1, inversify_1.inject(types_1.TYPES.Token)),
-    __metadata("design:paramtypes", [discord_js_1.Client, String])
+    __param(2, inversify_1.inject(types_1.TYPES.MessageResponder)),
+    __metadata("design:paramtypes", [discord_js_1.Client, String, message_responder_1.MessageResponder])
 ], Bot);
 exports.Bot = Bot;
 //# sourceMappingURL=bot.js.map
