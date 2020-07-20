@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import 'mocha';
 import { expect } from 'chai';
-import { ServerFinder } from "../../src/services/server-finder";
+import { ServerFinder } from "../../../src/services/server-finder";
 
 describe('ServerFinder', () => {
     let service: ServerFinder;

@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import 'mocha';
 import { expect } from 'chai';
-import { PingFinder } from "../../src/services/ping-finder";
+import { PingFinder } from "../../../src/services/ping-finder";
 
 describe('PingFinder', () => {
     let service: PingFinder;
