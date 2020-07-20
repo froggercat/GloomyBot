@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("mocha");
 const chai_1 = require("chai");
-const server_finder_1 = require("../../src/services/server-finder");
+const server_finder_1 = require("../../../src/services/server-finder");
 describe('ServerFinder', () => {
     let service;
     beforeEach(() => {
