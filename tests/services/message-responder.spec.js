@@ -35,11 +35,15 @@ describe('MessageResponder', () => {
         setMessageContents();
         service = new message_responder_1.MessageResponder(mockedPingFinderInstance, mockedServerFinderInstance);
     });
-    it('should reply', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('should reply with pong', () => __awaiter(void 0, void 0, void 0, function* () {
         whenIsPingThenReturn(true);
         yield service.handle(mockedMessageInstance);
         ts_mockito_1.verify(mockedMessageClass.reply('pong!')).once();
-        ts_mockito_1.verify(mockedMessageClass.reply('pong!')).once();
+    }));
+    it('should reply with server info', () => __awaiter(void 0, void 0, void 0, function* () {
+        whenIsServerThenReturn(true);
+        yield service.handle(mockedMessageInstance);
+        ts_mockito_1.verify(mockedMessageClass.reply(process.env.SERVER)).once();
     }));
     it('should not reply', () => __awaiter(void 0, void 0, void 0, function* () {
         whenIsPingThenReturn(false);
@@ -50,7 +54,14 @@ describe('MessageResponder', () => {
             // Rejected promise is expected, so nothing happens here
         });
         ts_mockito_1.verify(mockedMessageClass.reply('pong!')).never();
-        ts_mockito_1.verify(mockedMessageClass.reply("dev")).never();
+        whenIsServerThenReturn(false);
+        yield service.handle(mockedMessageInstance).then(() => {
+            // Successful promise is unexpected, so we fail the test
+            chai_1.expect.fail('Unexpected promise');
+        }).catch(() => {
+            // Rejected promise is expected, so nothing happens here
+        });
+        ts_mockito_1.verify(mockedMessageClass.reply(process.env.SERVER)).never();
     }));
     function setMessageContents() {
         mockedMessageInstance.content = "Non-empty string";
