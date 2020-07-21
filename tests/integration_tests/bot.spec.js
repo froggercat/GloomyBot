@@ -11,8 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("mocha");
-const inversify_config_1 = require("../../inversify.config");
-const types_1 = require("../../src/types");
 const discord_js_1 = require("discord.js");
 const ts_mockito_1 = require("ts-mockito");
 describe('Bot', () => {
@@ -22,12 +20,26 @@ describe('Bot', () => {
     beforeEach(() => {
         discordMock = ts_mockito_1.mock(discord_js_1.Client);
         discordInstance = ts_mockito_1.instance(discordMock);
-        inversify_config_1.default.rebind(types_1.TYPES.Client)
-            .toConstantValue(discordInstance);
-        bot = inversify_config_1.default.get(types_1.TYPES.Bot);
+        // container.rebind<Client>(TYPES.Client)
+        //     .toConstantValue(discordInstance);
+        // bot = container.get<Bot>(TYPES.Bot);
     });
-    it('just a stub, need to add tests', () => __awaiter(void 0, void 0, void 0, function* () {
-        return true;
+    xit('logs in to client when listening', () => __awaiter(void 0, void 0, void 0, function* () {
+        whenLoginThenReturn(new Promise(resolve => resolve("")));
+        yield bot.listen();
+        ts_mockito_1.verify(discordMock.login()).once();
     }));
+    xit('watches for message events when listening', () => __awaiter(void 0, void 0, void 0, function* () {
+        whenOnThenReturn(ts_mockito_1.instance(discordMock));
+        yield bot.listen();
+        ts_mockito_1.verify(discordMock.on("message", () => null)).once();
+    }));
+    function whenLoginThenReturn(result) {
+        ts_mockito_1.when(discordMock.login("Non-empty string")).
+            thenReturn(result);
+    }
+    function whenOnThenReturn(result) {
+        ts_mockito_1.when(discordMock.on("message", () => null)).thenReturn(result);
+    }
 });
 //# sourceMappingURL=bot.spec.js.map

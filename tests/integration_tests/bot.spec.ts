@@ -14,13 +14,38 @@ describe('Bot', () => {
     beforeEach(() => {
         discordMock = mock(Client);
         discordInstance = instance(discordMock);
-        container.rebind<Client>(TYPES.Client)
-            .toConstantValue(discordInstance);
-        bot = container.get<Bot>(TYPES.Bot);
+        // container.rebind<Client>(TYPES.Client)
+        //     .toConstantValue(discordInstance);
+        // bot = container.get<Bot>(TYPES.Bot);
     });
 
-    it('just a stub, need to add tests', async () => {
-        return true;
+    xit('logs in to client when listening', async () => {
+        whenLoginThenReturn(
+            new Promise(resolve => resolve("")))
+
+        await bot.listen();
+
+        verify(discordMock.login()).once();
+    });
+
+    xit('watches for message events when listening', async () => {
+        whenOnThenReturn(instance(discordMock));
+
+        await bot.listen();
+
+        verify(discordMock.on("message", () => null)).once();
     })
+
+    function whenLoginThenReturn(result: Promise<string>) {
+        when(discordMock.login("Non-empty string")).
+            thenReturn(result);
+    }
+
+    function whenOnThenReturn(result: Client) {
+        when(discordMock.on(
+            "message",
+            () => null
+        )).thenReturn(result);
+    }
 
 });
