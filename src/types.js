@@ -7,6 +7,9 @@ exports.TYPES = {
     Token: Symbol("Token"),
     MessageResponder: Symbol("MessageResponder"),
     PingFinder: Symbol("PingFinder"),
-    ServerFinder: Symbol("ServerFinder")
+    ServerFinder: Symbol("ServerFinder"),
+    WarclockFinder: Symbol("WarclockFinder"),
+    GoogleAppCred: Symbol("GoogleAppCred"),
+    DatabaseURL: Symbol("DatabaseURL")
 };
 //# sourceMappingURL=types.js.map

@@ -17,10 +17,12 @@ const ping_finder_1 = require("./ping-finder");
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
 const server_finder_1 = require("./server-finder");
+const warclock_finder_1 = require("./warclock-finder");
 let MessageResponder = class MessageResponder {
-    constructor(pingFinder, serverFinder) {
+    constructor(pingFinder, serverFinder, warclockFinder) {
         this.pingFinder = pingFinder;
         this.serverFinder = serverFinder;
+        this.warclockFinder = warclockFinder;
     }
     handle(message) {
         if (this.pingFinder.isPing(message.content)) {
@@ -29,6 +31,9 @@ let MessageResponder = class MessageResponder {
         if (this.serverFinder.isServerRequest(message.content)) {
             return message.reply(process.env.SERVER);
         }
+        if (this.warclockFinder.isWarclockRequest(message.content)) {
+            return message.reply("You asked for clock stuff amirite");
+        }
         return Promise.reject();
     }
 };
@@ -36,8 +41,10 @@ MessageResponder = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.PingFinder)),
     __param(1, inversify_1.inject(types_1.TYPES.ServerFinder)),
+    __param(2, inversify_1.inject(types_1.TYPES.WarclockFinder)),
     __metadata("design:paramtypes", [ping_finder_1.PingFinder,
-        server_finder_1.ServerFinder])
+        server_finder_1.ServerFinder,
+        warclock_finder_1.WarclockFinder])
 ], MessageResponder);
 exports.MessageResponder = MessageResponder;
 //# sourceMappingURL=message-responder.js.map

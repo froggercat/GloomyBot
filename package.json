@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "watch": "tsc -p tsconfig.json -w",
-    "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\"",
-    "unit_test": "mocha -r ts-node/register \"tests/unit_tests/**/*.spec.ts\""
+    "test": "mocha -r dotenv/config -r ts-node/register \"tests/**/*.spec.ts\"",
+    "unit_test": "mocha -r dotenv/config -r ts-node/register \"tests/unit_tests/**/*.spec.ts\""
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "@types/node": "^14.0.23",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "firebase-admin": "^9.0.0",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13",
     "typescript": "^3.9.7"

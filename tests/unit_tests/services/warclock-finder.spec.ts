@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import 'mocha';
 import { expect } from 'chai';
-import { WCFinder } from "../../../src/services/warclock-finder";
+import { WarclockFinder } from "../../../src/services/warclock-finder";
 
 describe('WarclockFinder', () => {
-    let service: WCFinder;
+    let service: WarclockFinder;
     beforeEach(() => {
-        service = new WCFinder();
+        service = new WarclockFinder("", "");
     })
 
     it('should find .wc request in the string', () => {
