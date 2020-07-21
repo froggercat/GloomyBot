@@ -1,0 +1,1 @@
+{"version":3,"file":"warclock.js","sourceRoot":"","sources":["warclock.ts"],"names":[],"mappings":";;;;;AAAA,oDAA2B;AAE3B,MAAM,QAAQ;IAIV,YACI,IAAS,EACT,WAAmB;QACnB,IAAI,CAAC,IAAI,GAAG,gBAAM,CAAC,IAAI,CAAC,CAAC,IAAI,EAAE,CAAA;QAC/B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAA;IAClC,CAAC;CACJ;AAED,kBAAe,QAAQ,CAAC"}
