@@ -7,7 +7,7 @@ const warclock_finder_1 = require("../../../src/services/warclock-finder");
 describe('WarclockFinder', () => {
     let service;
     beforeEach(() => {
-        service = new warclock_finder_1.WarclockFinder("", "");
+        service = new warclock_finder_1.WarclockFinder();
     });
     it('should find .wc request in the string', () => {
         chai_1.expect(service.isWarclockRequest(".wc")).to.be.true;

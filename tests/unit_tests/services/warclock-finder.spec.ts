@@ -6,7 +6,7 @@ import { WarclockFinder } from "../../../src/services/warclock-finder";
 describe('WarclockFinder', () => {
     let service: WarclockFinder;
     beforeEach(() => {
-        service = new WarclockFinder("", "");
+        service = new WarclockFinder();
     })
 
     it('should find .wc request in the string', () => {

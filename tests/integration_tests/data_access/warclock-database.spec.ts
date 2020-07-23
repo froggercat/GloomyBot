@@ -1,17 +1,19 @@
 import "reflect-metadata";
 import 'mocha';
 import moment from 'moment';
-import { WarclockFinder } from "../../../src/services/warclock-finder";
+import { WarclockDatabase } from "../../../src/data_access/warclock-database";
 import Warclock from "../../../src/models/warclock";
 import { expect } from 'chai';
+import FirebaseConnection from "../../../src/data_access/firebase-connection";
 
 
-describe('WarclockFinderIntegration', function () {
-    let service: WarclockFinder;
+describe('WarclockDatabase', function () {
+    let service: WarclockDatabase;
     let server: string;
+    let connection: FirebaseConnection = new FirebaseConnection(process.env.DATABASE_URL, process.env.GOOGLE_APPLICATION_CREDENTIALS)
 
     before(() => {
-        service = new WarclockFinder(process.env.DATABASE_URL, process.env.GOOGLE_APPLICATION_CREDENTIALS);
+        service = new WarclockDatabase(connection);
         server = "integration_test"
     })
 

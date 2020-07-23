@@ -10,6 +10,7 @@ exports.TYPES = {
     ServerFinder: Symbol("ServerFinder"),
     WarclockFinder: Symbol("WarclockFinder"),
     GoogleAppCred: Symbol("GoogleAppCred"),
-    DatabaseURL: Symbol("DatabaseURL")
+    DatabaseURL: Symbol("DatabaseURL"),
+    FirebaseConnection: Symbol("FirebaseConnection")
 };
 //# sourceMappingURL=types.js.map
