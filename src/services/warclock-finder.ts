@@ -35,19 +35,36 @@ export class WarclockFinder {
         this.ref = this.db.ref(`warclock/${process.env.SERVER}`);
     }
 
-    public clearData(data: object, server: string): admin.firestore.CollectionReference {
+    public clearData(keys: Array<string>, server: string): admin.firestore.CollectionReference {
         if (!this.db) this.initFirebase();
 
         let delRef = this.ref;
         if (server) delRef = delRef.child(server)
-        if (data) {
-            Object.keys(data).forEach(key => {
+        if (keys) {
+            keys.forEach(key => {
                 delRef.child(key).remove()
             })
         } else {
             delRef.remove();
         }
         return delRef
+    }
+
+    public async queryDB(server: string): Promise<object> {
+        if (!this.db) this.initFirebase();
+
+        let queryRef = this.ref;
+        if (server) queryRef = queryRef.child(server)
+        let results = {};
+        await queryRef.once("value")
+            .then(function (snapshot) {
+                results = { ...results, ...(snapshot.val()) };
+            })
+            .catch(function (errorObject) {
+                console.log("errrrooooorrrr")
+                console.error(errorObject);
+            });
+        return results;
     }
 
     public isWarclockRequest(stringToSearch: string): boolean {

@@ -45,6 +45,21 @@ describe('WarclockFinderIntegration', function () {
             chai_1.expect(Object.keys(result)).to.contain(another_server);
         });
     });
+    it('should retrive all wc data for a server', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            let wc = new warclock_1.default(moment_1.default.utc(), this.test.title);
+            let ref = service.saveWC(wc, server);
+            chai_1.expect(!!ref).to.be.true;
+            let result = yield service.queryDB(server);
+            let thisKey = Object.entries(result).filter(entry => {
+                let result = entry[1]['time'] == wc.time && entry[1]['description'] == wc.description;
+                return result;
+            })[0][0];
+            chai_1.expect(thisKey).to.not.be.null;
+            chai_1.expect(thisKey).to.not.be.undefined;
+            chai_1.expect(thisKey).to.not.be.empty;
+        });
+    });
     it('should delete single record', function () {
         return __awaiter(this, void 0, void 0, function* () {
             let wc = new warclock_1.default(moment_1.default.utc(), this.test.title);
@@ -54,8 +69,7 @@ describe('WarclockFinderIntegration', function () {
                 let result = entry[1]['time'] == wc.time && entry[1]['description'] == wc.description;
                 return result;
             })[0][0];
-            data = { [thisKey]: data[thisKey] };
-            ref = service.clearData(data, server);
+            ref = service.clearData([thisKey], server);
             chai_1.expect(!!ref).to.be.true;
             let result = yield service.retrieveDB();
             chai_1.expect(Object.keys(result[server])).to.not.contain(thisKey);
@@ -70,18 +84,12 @@ describe('WarclockFinderIntegration', function () {
             ];
             wcs.forEach(wc => service.saveWC(wc, server));
             let data = (yield service.retrieveDB())[server];
-            // console.log(data, wcs.map(w => w.time), wcs.map(w => w.description));
             let theseKeys = Object.entries(data).filter(entry => {
                 let result = wcs.map(w => w.time).includes(entry[1]['time']) &&
                     wcs.map(w => w.description).includes(entry[1]['description']);
                 return result;
             }).map(v => v[0]);
-            // console.log(theseKeys);
-            data = theseKeys.map(thisKey => {
-                return { [thisKey]: data[thisKey] };
-            });
-            // console.log(data);
-            let ref = service.clearData(data, server);
+            let ref = service.clearData(theseKeys, server);
             chai_1.expect(!!ref).to.be.true;
             let result = yield service.retrieveDB();
             chai_1.expect(Object.keys(result[server])).to.not.include(theseKeys);

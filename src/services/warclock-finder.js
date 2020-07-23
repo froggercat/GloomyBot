@@ -59,14 +59,14 @@ let WarclockFinder = class WarclockFinder {
         this.db = admin.database();
         this.ref = this.db.ref(`warclock/${process.env.SERVER}`);
     }
-    clearData(data, server) {
+    clearData(keys, server) {
         if (!this.db)
             this.initFirebase();
         let delRef = this.ref;
         if (server)
             delRef = delRef.child(server);
-        if (data) {
-            Object.keys(data).forEach(key => {
+        if (keys) {
+            keys.forEach(key => {
                 delRef.child(key).remove();
             });
         }
@@ -74,6 +74,25 @@ let WarclockFinder = class WarclockFinder {
             delRef.remove();
         }
         return delRef;
+    }
+    queryDB(server) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.db)
+                this.initFirebase();
+            let queryRef = this.ref;
+            if (server)
+                queryRef = queryRef.child(server);
+            let results = {};
+            yield queryRef.once("value")
+                .then(function (snapshot) {
+                results = Object.assign(Object.assign({}, results), (snapshot.val()));
+            })
+                .catch(function (errorObject) {
+                console.log("errrrooooorrrr");
+                console.error(errorObject);
+            });
+            return results;
+        });
     }
     isWarclockRequest(stringToSearch) {
         return stringToSearch.search(this.regexp) >= 0;
