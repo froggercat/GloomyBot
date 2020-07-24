@@ -6,7 +6,7 @@ import WarclockRequest from "../models/warclock-request";
 export class WarclockFinder {
 
     private regexp = /^[\.!\?]{0,1}wc/g;
-    private parser_regexp = /^\S+\s+([0-9]*)\s*(list|set|start|stop|set|reset)?\s*(.*)/gm;
+    private parser_regexp = /^\S+\s+#*([0-9]*)\s*(list|set|start|stop|set|reset)?\s*(.*)/gm;
     private help_regexp = /help$/gm;
 
     public isWarclockRequest(stringToSearch: string): boolean {
