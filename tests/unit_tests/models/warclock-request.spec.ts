@@ -8,7 +8,7 @@ describe('WarclockRequest', () => {
     it('should report an error if a bad time is passed', () => {
         let instance = new WarclockRequest({rawtime: "Not really a date"})
         // console.log(moment(instance.time).toString(), instance.time)
-        expect(instance.error).to.have.any;
+        expect(instance.error).to.not.be.empty;
     })
 
     it('should set the time to now if a bad time is passed', () => {
@@ -20,13 +20,14 @@ describe('WarclockRequest', () => {
     it('should have no errors when no date is passed', () => {
         let instance = new WarclockRequest({})
         // console.log(moment(instance.time).toString(), instance.time)
-        expect(instance.error).to.not.have.any;
+        // console.log(instance)
+        expect(instance.error).to.be.empty;
     })
 
     it('should have no errors w a real date-lookin thing', () => {
         let instance = new WarclockRequest({rawtime: "2020-01-01 11:05-05"})
         // console.log(moment(instance.time).toString(), instance.time)
-        expect(instance.error).to.not.have.any;
+        expect(instance.error).to.be.empty;
     })
 
     it('should not set the time to now if a date-lookin thing is passed', () => {

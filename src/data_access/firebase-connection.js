@@ -31,6 +31,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FirebaseConnection = void 0;
 const inversify_1 = require("inversify");
 const admin = __importStar(require("firebase-admin"));
 const types_1 = require("../types");
@@ -45,8 +46,21 @@ let FirebaseConnection = class FirebaseConnection {
             credential: admin.credential.cert(this.serviceAccount),
             databaseURL: this.dbURL
         });
+        this.changeDatabase();
+    }
+    changeDatabase() {
         this._db = admin.database();
-        this._ref = this.db.ref(`warclock/${process.env.SERVER}`);
+        this._ref = this._db.ref(`warclock/${process.env.SERVER}${!!this._guild ? '/' + this._guild : ''}`);
+    }
+    set guild(guild) {
+        this._guild = guild;
+        if (!this.db)
+            this.initFirebase();
+        else
+            this.changeDatabase();
+    }
+    get guild() {
+        return this._guild;
     }
     get db() {
         if (!this._db)
@@ -65,5 +79,5 @@ FirebaseConnection = __decorate([
     __param(1, inversify_1.inject(types_1.TYPES.GoogleAppCred)),
     __metadata("design:paramtypes", [String, String])
 ], FirebaseConnection);
-exports.default = FirebaseConnection;
+exports.FirebaseConnection = FirebaseConnection;
 //# sourceMappingURL=firebase-connection.js.map

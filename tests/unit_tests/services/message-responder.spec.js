@@ -18,6 +18,7 @@ const message_responder_1 = require("../../../src/services/message-responder");
 const ts_mockito_1 = require("ts-mockito");
 const discord_js_1 = require("discord.js");
 const warclock_finder_1 = require("../../../src/services/warclock-finder");
+const warclock_responder_1 = require("../../../src/services/warclock-responder");
 describe('MessageResponder', () => {
     let mockedPingFinderClass;
     let mockedPingFinderInstance;
@@ -27,6 +28,8 @@ describe('MessageResponder', () => {
     let mockedServerFinderInstance;
     let mockedWarclockFinderClass;
     let mockedWarclockFinderInstance;
+    let mockedWarclockResponderClass;
+    let mockedWarclockResponderInstance;
     let service;
     beforeEach(() => {
         mockedPingFinderClass = ts_mockito_1.mock(ping_finder_1.PingFinder);
@@ -37,8 +40,10 @@ describe('MessageResponder', () => {
         mockedServerFinderInstance = ts_mockito_1.instance(mockedServerFinderClass);
         mockedWarclockFinderClass = ts_mockito_1.mock(warclock_finder_1.WarclockFinder);
         mockedWarclockFinderInstance = ts_mockito_1.instance(mockedWarclockFinderClass);
+        mockedWarclockResponderClass = ts_mockito_1.mock(warclock_responder_1.WarclockResponder);
+        mockedWarclockResponderInstance = ts_mockito_1.instance(mockedWarclockResponderClass);
         setMessageContents();
-        service = new message_responder_1.MessageResponder(mockedPingFinderInstance, mockedServerFinderInstance, mockedWarclockFinderInstance);
+        service = new message_responder_1.MessageResponder(mockedPingFinderInstance, mockedServerFinderInstance, mockedWarclockFinderInstance, mockedWarclockResponderInstance);
     });
     it('should reply with pong', () => __awaiter(void 0, void 0, void 0, function* () {
         whenIsPingThenReturn(true);

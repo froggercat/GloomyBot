@@ -1,23 +1,15 @@
 import moment from 'moment'
-
-enum WarclockCommand {
-    default,
-    list,
-    start,
-    stop,
-    reset,
-    help
-}
+import WarclockCommand from './warclock-commands'
 
 interface NamedParameters {
-    id?: number,
-    command?: WarclockCommand,
+    id?: any,
+    command?: Array<string>,
     description?: string,
     rawtime?: any
 }
 
 class WarclockRequest {
-    public command: WarclockCommand
+    public commands: Array<WarclockCommand>
     public id: number
     public pushid: string
     public description: string
@@ -29,7 +21,7 @@ class WarclockRequest {
         if (parsed.isValid()) this._time = +parsed
         else {
             this._time = +moment()
-            this.error.push("Your time wasn't formatted right, so I just set it to now and you can edit it later. I'm pretty flexible so you prolly typed somethin weird. All else fails, try doing `YYYY-MM-DD HH:mm+UTCoffset`, that pretty much always works.")
+            if(value) this.error.push("Your time wasn't formatted right, so I just set it to now and you can edit it later. If you meant to set a time you prolly typed somethin weird. Try doing `YYYY-MM-DD HH:mm+UTCoffset`, that pretty much always works.")
         }
     }
     get time() {
@@ -39,13 +31,13 @@ class WarclockRequest {
 
     public constructor({
         id = null,
-        command = WarclockCommand.default,
+        command = ["help"],
         description = null,
         rawtime = null
     }: NamedParameters) {
         this.time = rawtime
-        this.id = id
-        this.command = command
+        this.id = +id
+        this.commands = command.map(c => WarclockCommand[c])
         this.description = !!description ? description : null
     }
 }

@@ -7,6 +7,7 @@ import { MessageResponder } from "../../../src/services/message-responder";
 import { instance, mock, verify, when } from "ts-mockito";
 import { Message } from "discord.js";
 import { WarclockFinder } from "../../../src/services/warclock-finder";
+import { WarclockResponder } from "../../../src/services/warclock-responder";
 
 describe('MessageResponder', () => {
     let mockedPingFinderClass: PingFinder;
@@ -17,6 +18,8 @@ describe('MessageResponder', () => {
     let mockedServerFinderInstance: ServerFinder;
     let mockedWarclockFinderClass: WarclockFinder;
     let mockedWarclockFinderInstance: WarclockFinder;
+    let mockedWarclockResponderClass: WarclockResponder;
+    let mockedWarclockResponderInstance: WarclockResponder;
 
     let service: MessageResponder;
 
@@ -29,9 +32,11 @@ describe('MessageResponder', () => {
         mockedServerFinderInstance = instance(mockedServerFinderClass);
         mockedWarclockFinderClass = mock(WarclockFinder);
         mockedWarclockFinderInstance = instance(mockedWarclockFinderClass);
+        mockedWarclockResponderClass = mock(WarclockResponder);
+        mockedWarclockResponderInstance = instance(mockedWarclockResponderClass);
         setMessageContents();
 
-        service = new MessageResponder(mockedPingFinderInstance, mockedServerFinderInstance, mockedWarclockFinderInstance);
+        service = new MessageResponder(mockedPingFinderInstance, mockedServerFinderInstance, mockedWarclockFinderInstance, mockedWarclockResponderInstance);
     })
 
     it('should reply with pong', async () => {

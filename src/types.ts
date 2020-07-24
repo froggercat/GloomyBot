@@ -1,3 +1,5 @@
+import { WarclockResponder } from "./services/warclock-responder";
+
 export const TYPES = {
   Bot: Symbol("Bot"),
   Client: Symbol("Client"),
@@ -8,5 +10,7 @@ export const TYPES = {
   WarclockFinder: Symbol("WarclockFinder"),
   GoogleAppCred: Symbol("GoogleAppCred"),
   DatabaseURL: Symbol("DatabaseURL"),
-  FirebaseConnection: Symbol("FirebaseConnection")
+  FirebaseConnection: Symbol("FirebaseConnection"),
+  WarclockResponder: Symbol("WarclockResponder"),
+  WarclockDatabase: Symbol("WarclockDatabase")
 };

@@ -11,6 +11,8 @@ exports.TYPES = {
     WarclockFinder: Symbol("WarclockFinder"),
     GoogleAppCred: Symbol("GoogleAppCred"),
     DatabaseURL: Symbol("DatabaseURL"),
-    FirebaseConnection: Symbol("FirebaseConnection")
+    FirebaseConnection: Symbol("FirebaseConnection"),
+    WarclockResponder: Symbol("WarclockResponder"),
+    WarclockDatabase: Symbol("WarclockDatabase")
 };
 //# sourceMappingURL=types.js.map

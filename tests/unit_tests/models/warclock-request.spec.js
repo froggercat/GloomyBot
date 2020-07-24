@@ -12,7 +12,7 @@ describe('WarclockRequest', () => {
     it('should report an error if a bad time is passed', () => {
         let instance = new warclock_request_1.default({ rawtime: "Not really a date" });
         // console.log(moment(instance.time).toString(), instance.time)
-        chai_1.expect(instance.error).to.have.any;
+        chai_1.expect(instance.error).to.not.be.empty;
     });
     it('should set the time to now if a bad time is passed', () => {
         let instance = new warclock_request_1.default({});
@@ -22,12 +22,13 @@ describe('WarclockRequest', () => {
     it('should have no errors when no date is passed', () => {
         let instance = new warclock_request_1.default({});
         // console.log(moment(instance.time).toString(), instance.time)
-        chai_1.expect(instance.error).to.not.have.any;
+        // console.log(instance)
+        chai_1.expect(instance.error).to.be.empty;
     });
     it('should have no errors w a real date-lookin thing', () => {
         let instance = new warclock_request_1.default({ rawtime: "2020-01-01 11:05-05" });
         // console.log(moment(instance.time).toString(), instance.time)
-        chai_1.expect(instance.error).to.not.have.any;
+        chai_1.expect(instance.error).to.be.empty;
     });
     it('should not set the time to now if a date-lookin thing is passed', () => {
         let instance = new warclock_request_1.default({ rawtime: "12 Nov 2019 11:20 +0003" });

@@ -20,31 +20,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WarclockDatabase = void 0;
 const inversify_1 = require("inversify");
 const types_1 = require("../types");
-const firebase_connection_1 = __importDefault(require("./firebase-connection"));
+const firebase_connection_1 = require("./firebase-connection");
 let WarclockDatabase = class WarclockDatabase {
     constructor(conn) {
         this.connection = conn;
     }
-    clearData(keys, server) {
-        let delRef = this.connection.ref;
-        if (server)
-            delRef = delRef.child(server);
+    clearData(keys) {
         if (keys) {
             keys.forEach(key => {
-                delRef.child(key).remove();
+                this.connection.ref.child(key).remove();
             });
         }
         else {
-            delRef.remove();
+            this.connection.ref.remove();
         }
-        return delRef;
+        return this.connection.ref;
     }
     queryDB(server) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -66,8 +60,10 @@ let WarclockDatabase = class WarclockDatabase {
     retrieveDB() {
         return __awaiter(this, void 0, void 0, function* () {
             let results;
+            console.log("current ref path", this.connection.ref.path.valueOf());
             yield this.connection.ref.once("value")
                 .then(function (snapshot) {
+                console.log(snapshot.val());
                 results = snapshot.val();
             })
                 .catch(function (errorObject) {
@@ -76,16 +72,24 @@ let WarclockDatabase = class WarclockDatabase {
             return results;
         });
     }
-    saveWC(wc, server) {
-        let wcRef = this.connection.ref.child(server);
-        wcRef.push().set(wc);
-        return wcRef;
+    saveWC(wc, key = "") {
+        if (!!key)
+            this.connection.ref.child(key).set(wc);
+        else
+            this.connection.ref.push(wc);
+        return !!key ? this.connection.ref.child(key) : this.connection.ref;
+    }
+    set guild(guild) {
+        this.connection.guild = guild;
+    }
+    get guild() {
+        return this.connection.guild;
     }
 };
 WarclockDatabase = __decorate([
     inversify_1.injectable(),
     __param(0, inversify_1.inject(types_1.TYPES.FirebaseConnection)),
-    __metadata("design:paramtypes", [firebase_connection_1.default])
+    __metadata("design:paramtypes", [firebase_connection_1.FirebaseConnection])
 ], WarclockDatabase);
 exports.WarclockDatabase = WarclockDatabase;
 //# sourceMappingURL=warclock-database.js.map
