@@ -10,6 +10,7 @@ import { WarclockFinder } from "./src/services/warclock-finder";
 import { WarclockResponder } from "./src/services/warclock-responder";
 import { WarclockDatabase } from "./src/data_access/warclock-database";
 import { FirebaseConnection } from "./src/data_access/firebase-connection";
+import { MeFinder } from "./src/services/me-finder";
 
 let container = new Container();
 
@@ -23,6 +24,7 @@ container.bind<WarclockFinder>(TYPES.WarclockFinder).to(WarclockFinder).inSingle
 container.bind<WarclockResponder>(TYPES.WarclockResponder).to(WarclockResponder);
 container.bind<WarclockDatabase>(TYPES.WarclockDatabase).to(WarclockDatabase);
 container.bind<FirebaseConnection>(TYPES.FirebaseConnection).to(FirebaseConnection);
+container.bind<MeFinder>(TYPES.MeFinder).to(MeFinder);
 container.bind<string>(TYPES.GoogleAppCred).toConstantValue(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 container.bind<string>(TYPES.DatabaseURL).toConstantValue(process.env.DATABASE_URL);
 

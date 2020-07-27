@@ -15,7 +15,7 @@ const warclock_request_1 = __importDefault(require("../models/warclock-request")
 let WarclockFinder = class WarclockFinder {
     constructor() {
         this.regexp = /^[\.!\?]{0,1}wc/g;
-        this.parser_regexp = /^\S+\s+([0-9]*)\s*(list|set|start|stop|set|reset)?\s*(.*)/gm;
+        this.parser_regexp = /^\S+\s+#*([0-9]*)\s*(list|set|start|stop|set|reset)?\s*(.*)/gm;
         this.help_regexp = /help$/gm;
     }
     isWarclockRequest(stringToSearch) {

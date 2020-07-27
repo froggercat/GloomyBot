@@ -12,5 +12,6 @@ export const TYPES = {
   DatabaseURL: Symbol("DatabaseURL"),
   FirebaseConnection: Symbol("FirebaseConnection"),
   WarclockResponder: Symbol("WarclockResponder"),
-  WarclockDatabase: Symbol("WarclockDatabase")
+  WarclockDatabase: Symbol("WarclockDatabase"),
+  MeFinder: Symbol("MeFinder")
 };
