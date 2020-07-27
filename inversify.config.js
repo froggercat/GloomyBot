@@ -12,6 +12,7 @@ const warclock_finder_1 = require("./src/services/warclock-finder");
 const warclock_responder_1 = require("./src/services/warclock-responder");
 const warclock_database_1 = require("./src/data_access/warclock-database");
 const firebase_connection_1 = require("./src/data_access/firebase-connection");
+const me_finder_1 = require("./src/services/me-finder");
 let container = new inversify_1.Container();
 container.bind(types_1.TYPES.Bot).to(bot_1.Bot).inSingletonScope();
 container.bind(types_1.TYPES.Client).toConstantValue(new discord_js_1.Client());
@@ -23,6 +24,7 @@ container.bind(types_1.TYPES.WarclockFinder).to(warclock_finder_1.WarclockFinder
 container.bind(types_1.TYPES.WarclockResponder).to(warclock_responder_1.WarclockResponder);
 container.bind(types_1.TYPES.WarclockDatabase).to(warclock_database_1.WarclockDatabase);
 container.bind(types_1.TYPES.FirebaseConnection).to(firebase_connection_1.FirebaseConnection);
+container.bind(types_1.TYPES.MeFinder).to(me_finder_1.MeFinder);
 container.bind(types_1.TYPES.GoogleAppCred).toConstantValue(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 container.bind(types_1.TYPES.DatabaseURL).toConstantValue(process.env.DATABASE_URL);
 exports.default = container;

@@ -5,6 +5,7 @@ import { TYPES } from "../types";
 import { ServerFinder } from "./server-finder";
 import { WarclockFinder } from "./warclock-finder";
 import { WarclockResponder } from "./warclock-responder";
+import { MeFinder } from "./me-finder";
 
 @injectable()
 export class MessageResponder {
@@ -12,17 +13,20 @@ export class MessageResponder {
     private serverFinder: ServerFinder;
     private warclockFinder: WarclockFinder;
     private warclockResponder: WarclockResponder;
+    private meFinder: MeFinder;
 
     constructor(
         @inject(TYPES.PingFinder) pingFinder: PingFinder,
         @inject(TYPES.ServerFinder) serverFinder: ServerFinder,
         @inject(TYPES.WarclockFinder) warclockFinder: WarclockFinder,
-        @inject(TYPES.WarclockResponder) warclockResponder: WarclockResponder
+        @inject(TYPES.WarclockResponder) warclockResponder: WarclockResponder,
+        @inject(TYPES.MeFinder) meFinder: MeFinder
     ) {
         this.pingFinder = pingFinder;
         this.serverFinder = serverFinder;
         this.warclockFinder = warclockFinder;
         this.warclockResponder = warclockResponder;
+        this.meFinder = meFinder;
     }
 
     async handle(message: Message): Promise<Message | Message[]> {
@@ -37,7 +41,9 @@ export class MessageResponder {
             let response = await this.warclockResponder.getResponse(wcCommand, message.guild.id);
             return message.reply(response);
         }
-
+        if (this.meFinder.isTalkingToMe(message)) {
+            return message.reply(this.meFinder.respondwSass());
+        }
         return Promise.reject();
     }
 }

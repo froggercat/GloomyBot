@@ -28,12 +28,14 @@ const types_1 = require("../types");
 const server_finder_1 = require("./server-finder");
 const warclock_finder_1 = require("./warclock-finder");
 const warclock_responder_1 = require("./warclock-responder");
+const me_finder_1 = require("./me-finder");
 let MessageResponder = class MessageResponder {
-    constructor(pingFinder, serverFinder, warclockFinder, warclockResponder) {
+    constructor(pingFinder, serverFinder, warclockFinder, warclockResponder, meFinder) {
         this.pingFinder = pingFinder;
         this.serverFinder = serverFinder;
         this.warclockFinder = warclockFinder;
         this.warclockResponder = warclockResponder;
+        this.meFinder = meFinder;
     }
     handle(message) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -48,6 +50,9 @@ let MessageResponder = class MessageResponder {
                 let response = yield this.warclockResponder.getResponse(wcCommand, message.guild.id);
                 return message.reply(response);
             }
+            if (this.meFinder.isTalkingToMe(message)) {
+                return message.reply(this.meFinder.respondwSass());
+            }
             return Promise.reject();
         });
     }
@@ -58,10 +63,12 @@ MessageResponder = __decorate([
     __param(1, inversify_1.inject(types_1.TYPES.ServerFinder)),
     __param(2, inversify_1.inject(types_1.TYPES.WarclockFinder)),
     __param(3, inversify_1.inject(types_1.TYPES.WarclockResponder)),
+    __param(4, inversify_1.inject(types_1.TYPES.MeFinder)),
     __metadata("design:paramtypes", [ping_finder_1.PingFinder,
         server_finder_1.ServerFinder,
         warclock_finder_1.WarclockFinder,
-        warclock_responder_1.WarclockResponder])
+        warclock_responder_1.WarclockResponder,
+        me_finder_1.MeFinder])
 ], MessageResponder);
 exports.MessageResponder = MessageResponder;
 //# sourceMappingURL=message-responder.js.map

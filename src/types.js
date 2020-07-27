@@ -13,6 +13,7 @@ exports.TYPES = {
     DatabaseURL: Symbol("DatabaseURL"),
     FirebaseConnection: Symbol("FirebaseConnection"),
     WarclockResponder: Symbol("WarclockResponder"),
-    WarclockDatabase: Symbol("WarclockDatabase")
+    WarclockDatabase: Symbol("WarclockDatabase"),
+    MeFinder: Symbol("MeFinder")
 };
 //# sourceMappingURL=types.js.map
