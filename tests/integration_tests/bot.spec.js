@@ -20,9 +20,6 @@ describe('Bot', () => {
     beforeEach(() => {
         discordMock = ts_mockito_1.mock(discord_js_1.Client);
         discordInstance = ts_mockito_1.instance(discordMock);
-        // container.rebind<Client>(TYPES.Client)
-        //     .toConstantValue(discordInstance);
-        // bot = container.get<Bot>(TYPES.Bot);
     });
     xit('logs in to client when listening', () => __awaiter(void 0, void 0, void 0, function* () {
         whenLoginThenReturn(new Promise(resolve => resolve("")));

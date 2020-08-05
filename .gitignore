@@ -104,3 +104,4 @@ dist
 .tern-port
 firebase.md
 .env.mocha
+src/.DS_Store

@@ -87,6 +87,8 @@ let WarclockResponder = class WarclockResponder {
     }
     getResponse(message, guild) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (this.db.guild !== guild)
+                this.markDataAsStale();
             this.db.guild = guild;
             let reply = "you want clock stuff amirite";
             let fbKey = "";
