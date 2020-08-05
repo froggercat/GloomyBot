@@ -12,4 +12,8 @@ describe('PingFinder', () => {
     it('should find "ping" in the string', () => {
         expect(service.isPing("ping")).to.be.true
     })
+
+    it('should not find "ping" in the string', () => {
+        expect(service.isPing("tripping")).to.be.false
+    })
 });

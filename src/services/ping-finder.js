@@ -10,7 +10,7 @@ exports.PingFinder = void 0;
 const inversify_1 = require("inversify");
 let PingFinder = class PingFinder {
     constructor() {
-        this.regexp = 'ping';
+        this.regexp = /^ping/;
     }
     isPing(stringToSearch) {
         return stringToSearch.search(this.regexp) >= 0;

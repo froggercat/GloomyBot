@@ -12,5 +12,8 @@ describe('PingFinder', () => {
     it('should find "ping" in the string', () => {
         chai_1.expect(service.isPing("ping")).to.be.true;
     });
+    it('should not find "ping" in the string', () => {
+        chai_1.expect(service.isPing("tripping")).to.be.false;
+    });
 });
 //# sourceMappingURL=ping-finder.spec.js.map
