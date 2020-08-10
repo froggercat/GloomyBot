@@ -1,46 +1,36 @@
 import "reflect-metadata";
 import 'mocha';
 import { Bot } from "../../src/bot";
-import { Client } from "discord.js";
+import { Client, Message } from "discord.js";
 import { instance, mock, verify, when } from "ts-mockito";
+import { MessageResponder } from "../../src/services/message-responder";
 
 describe('Bot', () => {
-    let discordMock: Client;
+    let mockedDiscordClass: Client;
     let discordInstance: Client;
+    let token: string = "fake_token";
+    let mockedMessageResponderClass: MessageResponder;
+    let messageResponderInstance: MessageResponder;
     let bot: Bot;
 
-    beforeEach(() => {
-        discordMock = mock(Client);
-        discordInstance = instance(discordMock);
+    before(() => {
+        mockedDiscordClass = mock(Client);
+        discordInstance = instance(mockedDiscordClass);
+        mockedMessageResponderClass = mock(MessageResponder);
+        messageResponderInstance = instance(mockedMessageResponderClass);
+        bot = new Bot(discordInstance, token, messageResponderInstance);
     });
 
-    xit('logs in to client when listening', async () => {
-        whenLoginThenReturn(
-            new Promise(resolve => resolve("")))
+    it('logs in to client when listening', async () => {
+        whenLoginThenReturn(token);
 
-        await bot.listen();
+        await bot.listen()
 
-        verify(discordMock.login()).once();
+        verify(mockedDiscordClass.login(token)).once();
     });
 
-    xit('watches for message events when listening', async () => {
-        whenOnThenReturn(instance(discordMock));
-
-        await bot.listen();
-
-        verify(discordMock.on("message", () => null)).once();
-    })
-
-    function whenLoginThenReturn(result: Promise<string>) {
-        when(discordMock.login("Non-empty string")).
-            thenReturn(result);
+    function whenLoginThenReturn(result: string) {
+        when(mockedDiscordClass.login(token))
+            .thenReturn(new Promise<string>(resolve => resolve(result)));
     }
-
-    function whenOnThenReturn(result: Client) {
-        when(discordMock.on(
-            "message",
-            () => null
-        )).thenReturn(result);
-    }
-
 });
