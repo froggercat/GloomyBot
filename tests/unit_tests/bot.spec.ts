@@ -13,7 +13,7 @@ describe('Bot', () => {
     let messageResponderInstance: MessageResponder;
     let bot: Bot;
 
-    before(() => {
+    beforeEach(() => {
         mockedDiscordClass = mock(Client);
         discordInstance = instance(mockedDiscordClass);
         mockedMessageResponderClass = mock(MessageResponder);
