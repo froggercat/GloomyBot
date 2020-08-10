@@ -11,32 +11,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 require("mocha");
+const bot_1 = require("../../src/bot");
 const discord_js_1 = require("discord.js");
 const ts_mockito_1 = require("ts-mockito");
+const message_responder_1 = require("../../src/services/message-responder");
 describe('Bot', () => {
-    let discordMock;
+    let mockedDiscordClass;
     let discordInstance;
+    let token = "fake_token";
+    let mockedMessageResponderClass;
+    let messageResponderInstance;
     let bot;
-    beforeEach(() => {
-        discordMock = ts_mockito_1.mock(discord_js_1.Client);
-        discordInstance = ts_mockito_1.instance(discordMock);
+    before(() => {
+        mockedDiscordClass = ts_mockito_1.mock(discord_js_1.Client);
+        discordInstance = ts_mockito_1.instance(mockedDiscordClass);
+        mockedMessageResponderClass = ts_mockito_1.mock(message_responder_1.MessageResponder);
+        messageResponderInstance = ts_mockito_1.instance(mockedMessageResponderClass);
+        bot = new bot_1.Bot(discordInstance, token, messageResponderInstance);
     });
-    xit('logs in to client when listening', () => __awaiter(void 0, void 0, void 0, function* () {
-        whenLoginThenReturn(new Promise(resolve => resolve("")));
+    it('logs in to client when listening', () => __awaiter(void 0, void 0, void 0, function* () {
+        whenLoginThenReturn(token);
         yield bot.listen();
-        ts_mockito_1.verify(discordMock.login()).once();
-    }));
-    xit('watches for message events when listening', () => __awaiter(void 0, void 0, void 0, function* () {
-        whenOnThenReturn(ts_mockito_1.instance(discordMock));
-        yield bot.listen();
-        ts_mockito_1.verify(discordMock.on("message", () => null)).once();
+        ts_mockito_1.verify(mockedDiscordClass.login(token)).once();
     }));
     function whenLoginThenReturn(result) {
-        ts_mockito_1.when(discordMock.login("Non-empty string")).
-            thenReturn(result);
-    }
-    function whenOnThenReturn(result) {
-        ts_mockito_1.when(discordMock.on("message", () => null)).thenReturn(result);
+        ts_mockito_1.when(mockedDiscordClass.login(token))
+            .thenReturn(new Promise(resolve => resolve(result)));
     }
 });
 //# sourceMappingURL=bot.spec.js.map
