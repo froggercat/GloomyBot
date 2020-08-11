@@ -105,3 +105,4 @@ dist
 firebase.md
 .env.mocha
 src/.DS_Store
+.vscode
