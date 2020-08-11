@@ -35,4 +35,22 @@ describe('WarclockRequest', () => {
         // console.log(moment(instance.time).toString(), instance.time)
         expect(moment(instance.time).unix()).to.not.be.closeTo(moment().unix(), 3000);
     })
+
+    it('should not set the time to now if a relative date is passed', () => {
+        let instance = new WarclockRequest({rawtime: "5 days from now"})
+        // console.log(moment(instance.time).toString(), instance.time)
+        expect(moment(instance.time).unix()).to.not.be.closeTo(moment().unix(), 3000);
+    })
+
+    it('should not set the time to now if a relative time is passed', () => {
+        let instance = new WarclockRequest({rawtime: "5 hours from now"})
+        // console.log(moment(instance.time).toString(), instance.time)
+        expect(moment(instance.time).unix()).to.not.be.closeTo(moment().unix(), 3000);
+    })
+
+    it('should not set the time to now if an english date is passed', () => {
+        let instance = new WarclockRequest({rawtime: "12 Sep"})
+        // console.log(moment(instance.time).toString(), instance.time)
+        expect(moment(instance.time).unix()).to.not.be.closeTo(moment().unix(), 3000);
+    })
 });

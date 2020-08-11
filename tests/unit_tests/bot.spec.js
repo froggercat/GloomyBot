@@ -22,7 +22,7 @@ describe('Bot', () => {
     let mockedMessageResponderClass;
     let messageResponderInstance;
     let bot;
-    before(() => {
+    beforeEach(() => {
         mockedDiscordClass = ts_mockito_1.mock(discord_js_1.Client);
         discordInstance = ts_mockito_1.instance(mockedDiscordClass);
         mockedMessageResponderClass = ts_mockito_1.mock(message_responder_1.MessageResponder);

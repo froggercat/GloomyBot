@@ -1,4 +1,5 @@
 import moment from 'moment'
+import * as chrono from 'chrono-node';
 import WarclockCommand from './warclock-commands'
 
 interface NamedParameters {
@@ -17,7 +18,8 @@ class WarclockRequest {
     set time(value: any) {
         // @ts-ignore
         moment.suppressDeprecationWarnings = true;
-        let parsed = moment(value)
+        let referenceDate = moment().toDate()
+        let parsed = moment(chrono.parseDate(value, referenceDate))
         if (parsed.isValid()) this._time = +parsed
         else {
             this._time = +moment()
