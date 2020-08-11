@@ -35,5 +35,20 @@ describe('WarclockRequest', () => {
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
     });
+    it('should not set the time to now if a relative date is passed', () => {
+        let instance = new warclock_request_1.default({ rawtime: "5 days from now" });
+        // console.log(moment(instance.time).toString(), instance.time)
+        chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
+    });
+    it('should not set the time to now if a relative time is passed', () => {
+        let instance = new warclock_request_1.default({ rawtime: "5 hours from now" });
+        // console.log(moment(instance.time).toString(), instance.time)
+        chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
+    });
+    it('should not set the time to now if an english date is passed', () => {
+        let instance = new warclock_request_1.default({ rawtime: "12 Sep" });
+        // console.log(moment(instance.time).toString(), instance.time)
+        chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
+    });
 });
 //# sourceMappingURL=warclock-request.spec.js.map
