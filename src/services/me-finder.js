@@ -64,7 +64,7 @@ let MeFinder = class MeFinder {
     isTalkingToMe(message) {
         console.log(this.client.user);
         let amITalkingToMyself = message.author.equals(this.client.user);
-        let randomlyRespond = Math.random() >= 0.99;
+        let randomlyRespond = Math.random() >= 0.999;
         return !amITalkingToMyself && (randomlyRespond || message.mentions.has(this.client.user));
     }
     respondwSass() {
