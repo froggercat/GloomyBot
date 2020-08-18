@@ -40,7 +40,7 @@ let WarclockFinder = class WarclockFinder {
             }
             if (!!match[4]) {
                 console.log("Secondary command argument:", match[4]);
-                params["cmd_2_arg"] = match[4];
+                params["cmd_arg"] = match[4];
             }
         }
         while (match = this.help_regexp.exec(commandToParse)) {

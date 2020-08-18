@@ -179,7 +179,7 @@ let WarclockResponder = class WarclockResponder {
                             : new warclock_1.default(moment_1.default.unix(this._data[fbKey].time), message.description);
                         this.db.saveWC(wc, fbKey);
                         this.markDataAsStale();
-                        reply = `Updated warclock id #${message.id}: set ${message.commands[1]} to ${moment_1.default.unix(wc.time)}`;
+                        reply = `${message.error ? "\n\t" + message.error.join("\n\t") + "\n\n" : ""}Updated warclock id #${message.id}: set ${message.commands[1]} to ${moment_1.default.unix(wc.time)}`;
                     });
                     break;
                 case (warclock_commands_1.default.help):

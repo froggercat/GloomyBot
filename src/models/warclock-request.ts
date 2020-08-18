@@ -17,7 +17,6 @@ class WarclockRequest {
     set time(value: any) {
         // @ts-ignore
         moment.suppressDeprecationWarnings = true;
-        console.log("setting")
         let referenceDate = moment().toDate()
         let parsed = moment(chrono.parseDate(value, referenceDate))
         if (parsed.isValid()) this._time = +parsed
@@ -43,7 +42,6 @@ class WarclockRequest {
         } else {
             this.description = cmd_arg
         }
-
         console.log("Set my params", this)
     }
 }

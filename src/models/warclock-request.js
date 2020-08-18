@@ -26,22 +26,21 @@ const moment_1 = __importDefault(require("moment"));
 const chrono = __importStar(require("chrono-node"));
 const warclock_commands_1 = __importDefault(require("./warclock-commands"));
 class WarclockRequest {
-    constructor({ id = null, command = ["help"], cmd_2_arg = null }) {
+    constructor({ id = null, command = ["help"], cmd_arg = null }) {
         this.error = [];
         this.id = +id;
         this.commands = command.map(c => warclock_commands_1.default[c]);
         if (this.commands.includes(warclock_commands_1.default.time)) {
-            this.time = cmd_2_arg;
+            this.time = cmd_arg;
         }
         else {
-            this.description = cmd_2_arg;
+            this.description = cmd_arg;
         }
         console.log("Set my params", this);
     }
     set time(value) {
         // @ts-ignore
         moment_1.default.suppressDeprecationWarnings = true;
-        console.log("setting");
         let referenceDate = moment_1.default().toDate();
         let parsed = moment_1.default(chrono.parseDate(value, referenceDate));
         if (parsed.isValid())
