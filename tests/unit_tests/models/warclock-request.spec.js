@@ -10,7 +10,7 @@ const warclock_request_1 = __importDefault(require("../../../src/models/warclock
 const moment_1 = __importDefault(require("moment"));
 describe('WarclockRequest', () => {
     it('should report an error if a bad time is passed', () => {
-        let instance = new warclock_request_1.default({ rawtime: "Not really a date" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "Not really a date" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(instance.error).to.not.be.empty;
     });
@@ -26,27 +26,27 @@ describe('WarclockRequest', () => {
         chai_1.expect(instance.error).to.be.empty;
     });
     it('should have no errors w a real date-lookin thing', () => {
-        let instance = new warclock_request_1.default({ rawtime: "2020-01-01 11:05-05" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "2020-01-01 11:05-05" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(instance.error).to.be.empty;
     });
     it('should not set the time to now if a date-lookin thing is passed', () => {
-        let instance = new warclock_request_1.default({ rawtime: "12 Nov 2019 11:20 +0003" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "12 Nov 2019 11:20 +0003" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
     });
     it('should not set the time to now if a relative date is passed', () => {
-        let instance = new warclock_request_1.default({ rawtime: "5 days from now" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "5 days from now" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
     });
     it('should not set the time to now if a relative time is passed', () => {
-        let instance = new warclock_request_1.default({ rawtime: "5 hours from now" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "5 hours from now" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
     });
     it('should not set the time to now if an english date is passed', () => {
-        let instance = new warclock_request_1.default({ rawtime: "12 Sep" });
+        let instance = new warclock_request_1.default({ command: ["time"], cmd_2_arg: "12 Sep" });
         // console.log(moment(instance.time).toString(), instance.time)
         chai_1.expect(moment_1.default(instance.time).unix()).to.not.be.closeTo(moment_1.default().unix(), 3000);
     });

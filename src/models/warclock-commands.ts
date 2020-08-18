@@ -5,7 +5,9 @@ enum WarclockCommand {
     start,
     stop,
     set,
-    reset
+    reset,
+    time,
+    description
 }
 
 export default WarclockCommand

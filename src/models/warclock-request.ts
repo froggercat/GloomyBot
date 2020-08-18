@@ -5,8 +5,7 @@ import WarclockCommand from './warclock-commands'
 interface NamedParameters {
     id?: any,
     command?: Array<string>,
-    description?: string,
-    rawtime?: any
+    cmd_arg?: string,
 }
 
 class WarclockRequest {
@@ -18,6 +17,7 @@ class WarclockRequest {
     set time(value: any) {
         // @ts-ignore
         moment.suppressDeprecationWarnings = true;
+        console.log("setting")
         let referenceDate = moment().toDate()
         let parsed = moment(chrono.parseDate(value, referenceDate))
         if (parsed.isValid()) this._time = +parsed
@@ -34,13 +34,17 @@ class WarclockRequest {
     public constructor({
         id = null,
         command = ["help"],
-        description = null,
-        rawtime = null
+        cmd_arg = null
     }: NamedParameters) {
-        this.time = rawtime
         this.id = +id
         this.commands = command.map(c => WarclockCommand[c])
-        this.description = !!description ? description : null
+        if (this.commands.includes(WarclockCommand.time)) {
+            this.time = cmd_arg
+        } else {
+            this.description = cmd_arg
+        }
+
+        console.log("Set my params", this)
     }
 }
 

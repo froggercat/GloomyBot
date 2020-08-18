@@ -9,6 +9,8 @@ var WarclockCommand;
     WarclockCommand[WarclockCommand["stop"] = 4] = "stop";
     WarclockCommand[WarclockCommand["set"] = 5] = "set";
     WarclockCommand[WarclockCommand["reset"] = 6] = "reset";
+    WarclockCommand[WarclockCommand["time"] = 7] = "time";
+    WarclockCommand[WarclockCommand["description"] = 8] = "description";
 })(WarclockCommand || (WarclockCommand = {}));
 exports.default = WarclockCommand;
 //# sourceMappingURL=warclock-commands.js.map

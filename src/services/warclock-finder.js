@@ -15,7 +15,7 @@ const warclock_request_1 = __importDefault(require("../models/warclock-request")
 let WarclockFinder = class WarclockFinder {
     constructor() {
         this.regexp = /^[\.!\?]{0,1}wc/g;
-        this.parser_regexp = /^\S+\s+#*([0-9]*)\s*(list|set|start|stop|set|reset)?\s*(.*)/gm;
+        this.parser_regexp = /^\S+\s+#*([0-9]*)\s*(id|list|set|start|stop|set|reset)?\s*(time|description)?\s*(.*)/gm;
         this.help_regexp = /help$/gm;
     }
     isWarclockRequest(stringToSearch) {
@@ -24,6 +24,7 @@ let WarclockFinder = class WarclockFinder {
     parseWarclockRequest(commandToParse) {
         let match, params = {};
         while (match = this.parser_regexp.exec(commandToParse)) {
+            console.log("Regex parsing broke down command as follows:", commandToParse, "=>", match);
             if (!!match[1]) {
                 console.log("ID argument found");
                 params["id"] = match[1];
@@ -33,15 +34,13 @@ let WarclockFinder = class WarclockFinder {
                 console.log("Command argument found");
                 params["command"] = [match[2]];
             }
-            if (!!match[4]) {
-                console.log("Secondary Command argument found");
-                params["command"].push(match[4]);
-                params["time"] = match[3];
+            if (!!match[3]) {
+                console.log("Secondary Command argument found:", match[3]);
+                params["command"].push(match[3]);
             }
-            else {
-                console.log(`Description found: '${match[3]}'`);
-                // console.log(match)
-                params["description"] = match[3];
+            if (!!match[4]) {
+                console.log("Secondary command argument:", match[4]);
+                params["cmd_2_arg"] = match[4];
             }
         }
         while (match = this.help_regexp.exec(commandToParse)) {
