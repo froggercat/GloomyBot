@@ -15,19 +15,24 @@ const bot_1 = require("../../src/bot");
 const discord_js_1 = require("discord.js");
 const ts_mockito_1 = require("ts-mockito");
 const message_responder_1 = require("../../src/services/message-responder");
+const task_scheduler_1 = require("../../src/services/task-scheduler");
 describe('Bot', () => {
     let mockedDiscordClass;
     let discordInstance;
     let token = "fake_token";
     let mockedMessageResponderClass;
     let messageResponderInstance;
+    let mockedTaskSchedulerClass;
+    let taskSchedulerInstance;
     let bot;
     beforeEach(() => {
         mockedDiscordClass = ts_mockito_1.mock(discord_js_1.Client);
         discordInstance = ts_mockito_1.instance(mockedDiscordClass);
         mockedMessageResponderClass = ts_mockito_1.mock(message_responder_1.MessageResponder);
         messageResponderInstance = ts_mockito_1.instance(mockedMessageResponderClass);
-        bot = new bot_1.Bot(discordInstance, token, messageResponderInstance);
+        mockedTaskSchedulerClass = ts_mockito_1.mock(task_scheduler_1.TaskScheduler);
+        taskSchedulerInstance = ts_mockito_1.instance(mockedTaskSchedulerClass);
+        bot = new bot_1.Bot(discordInstance, token, messageResponderInstance, taskSchedulerInstance);
     });
     it('logs in to client when listening', () => __awaiter(void 0, void 0, void 0, function* () {
         whenLoginThenReturn(token);

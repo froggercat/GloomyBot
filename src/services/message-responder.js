@@ -51,7 +51,16 @@ let MessageResponder = class MessageResponder {
                 return message.reply(response);
             }
             if (this.meFinder.isTalkingToMe(message)) {
-                return message.reply(this.meFinder.respondwSass());
+                let reply;
+                this.meFinder.respondwSass().forEach((response, i) => {
+                    if (!i) {
+                        reply = message.reply(response);
+                    }
+                    else {
+                        message.channel.send(response);
+                    }
+                });
+                return reply;
             }
             return Promise.reject();
         });

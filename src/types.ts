@@ -1,5 +1,3 @@
-import { WarclockResponder } from "./services/warclock-responder";
-
 export const TYPES = {
   Bot: Symbol("Bot"),
   Client: Symbol("Client"),
@@ -13,5 +11,8 @@ export const TYPES = {
   FirebaseConnection: Symbol("FirebaseConnection"),
   WarclockResponder: Symbol("WarclockResponder"),
   WarclockDatabase: Symbol("WarclockDatabase"),
-  MeFinder: Symbol("MeFinder")
+  MeFinder: Symbol("MeFinder"),
+  DatabaseAccess: Symbol("DatabaseAccess"),
+  TaskScheduler: Symbol("TaskScheduler"),
+  WarclockScheduler: Symbol("WarclockScheduler")
 };

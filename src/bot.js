@@ -17,11 +17,16 @@ const discord_js_1 = require("discord.js");
 const inversify_1 = require("inversify");
 const types_1 = require("./types");
 const message_responder_1 = require("./services/message-responder");
+const task_scheduler_1 = require("./services/task-scheduler");
 let Bot = class Bot {
-    constructor(client, token, messageResponder) {
+    constructor(client, token, messageResponder, taskScheduler) {
         this.client = client;
         this.token = token;
         this.messageResponder = messageResponder;
+        this.taskScheduler = taskScheduler;
+    }
+    init() {
+        this.taskScheduler.init();
     }
     listen() {
         this.client.on('message', (message) => {
@@ -40,7 +45,9 @@ Bot = __decorate([
     __param(0, inversify_1.inject(types_1.TYPES.Client)),
     __param(1, inversify_1.inject(types_1.TYPES.Token)),
     __param(2, inversify_1.inject(types_1.TYPES.MessageResponder)),
-    __metadata("design:paramtypes", [discord_js_1.Client, String, message_responder_1.MessageResponder])
+    __param(3, inversify_1.inject(types_1.TYPES.TaskScheduler)),
+    __metadata("design:paramtypes", [discord_js_1.Client, String, message_responder_1.MessageResponder,
+        task_scheduler_1.TaskScheduler])
 ], Bot);
 exports.Bot = Bot;
 //# sourceMappingURL=bot.js.map

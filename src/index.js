@@ -8,7 +8,9 @@ const inversify_config_1 = __importDefault(require("../inversify.config"));
 const types_1 = require("./types");
 let bot = inversify_config_1.default.get(types_1.TYPES.Bot);
 bot.listen().then(() => {
-    console.log('Logged in!');
+    console.log('Logged in! Initializing stuff ...');
+    // bot.init();
+    console.log("K initialization complete");
 }).catch((error) => {
     console.log('Oh no! ', error);
 });

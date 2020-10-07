@@ -14,6 +14,9 @@ exports.TYPES = {
     FirebaseConnection: Symbol("FirebaseConnection"),
     WarclockResponder: Symbol("WarclockResponder"),
     WarclockDatabase: Symbol("WarclockDatabase"),
-    MeFinder: Symbol("MeFinder")
+    MeFinder: Symbol("MeFinder"),
+    DatabaseAccess: Symbol("DatabaseAccess"),
+    TaskScheduler: Symbol("TaskScheduler"),
+    WarclockScheduler: Symbol("WarclockScheduler")
 };
 //# sourceMappingURL=types.js.map
