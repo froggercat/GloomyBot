@@ -41,14 +41,19 @@ export class MessageResponder {
             let response = await this.warclockResponder.getResponse(wcCommand, message.guild.id);
             return message.reply(response);
         }
+        // This should prolly be refactored into a multi-responsee handler
         if (this.meFinder.isTalkingToMe(message)) {
             let reply: Promise<Message | Message[]>;
+            let messageTimer = 0;
             this.meFinder.respondwSass().forEach((response, i) => {
-                if (!i) {
-                    reply = message.reply(response);
-                } else {
-                    message.channel.send(response);
-                }
+                setTimeout(() => {
+                    if (!i) {
+                        reply = message.reply(response);
+                    } else {
+                        message.channel.send(response);
+                    }
+                }, messageTimer * 1000)
+                messageTimer = messageTimer + 3*Math.random()+i/2;
             });
             return reply;
         }
