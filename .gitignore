@@ -106,3 +106,9 @@ firebase.md
 .env.mocha
 src/.DS_Store
 .vscode
+
+# Downloaded Data Files in Exploration
+*exploration/data
+
+# Python Files
+__pycache__
