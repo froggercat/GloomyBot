@@ -41,3 +41,7 @@
 From the `cargo_query_exploration` directory:
 
 `python getDataTables.py`
+
+# Next Steps
+
+* Convert this to Cedar (or whatever its called)
